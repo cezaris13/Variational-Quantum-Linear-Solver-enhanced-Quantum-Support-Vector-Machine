@@ -1,6 +1,5 @@
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import PauliList
-from qiskit_aer import Aer
 import random
 import numpy as np
 import matplotlib.pyplot as plt

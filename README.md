@@ -11,7 +11,7 @@
 #### VQLS-SVM algorithm
 1. Take training data and prepare it to be [LS-SVM](https://en.wikipedia.org/wiki/Least-squares_support_vector_machine#:~:text=Elimination%20of,quadratic%20programming%20problem%3A) matrix form
 1. Convert LS-SVM matrix into all combinations of
- 
+
     $$|\langle b | \Phi \rangle|^2 \ = \ \displaystyle\sum_{m} \displaystyle\sum_{n} c_m c_n \langle 0 | U^{\dagger} A_n V(k) | 0 \rangle \langle 0 | U^{\dagger} A_m V(k) | 0 \rangle$$
 
     and
@@ -41,3 +41,11 @@ All of these test results have been used in the bachelor thesis.
     Testing VQLS-SVM algorithm with qubits up to 5, with iris and breast cancer datasets.
 - [ThreadsVQLS](/VQLS-QSVM-Implementation/SimulationTests/ThreadsVQLS.ipynb)
     Notebook used to test verious job size and thead combinations to find which option is the fastest
+
+## Update
+
+Removed ancilla qubit for special Hadamard test, replaced cz gate encoding with ccz.
+
+## Note
+
+For some reason, after qiskit= 1.1.2 the minimization function goes below 0.

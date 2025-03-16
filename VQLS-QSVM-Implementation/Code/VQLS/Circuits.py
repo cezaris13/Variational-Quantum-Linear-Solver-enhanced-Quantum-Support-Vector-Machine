@@ -86,7 +86,7 @@ def prepareCircuits(
     print("fixedAnsatzCircuit prepared")
 
     # Prepare controlled fixed ansatz circuit
-    controlledFixedAnsatzCircuit = QuantumCircuit(qubits + 2)
+    controlledFixedAnsatzCircuit = QuantumCircuit(qubits + 1)
     controlledFixedAnsatz(
         controlledFixedAnsatzCircuit, qubits, parametersSpecialHadamardSplit
     )

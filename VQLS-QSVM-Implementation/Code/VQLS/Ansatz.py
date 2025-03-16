@@ -81,6 +81,8 @@ def gatesToCircuit(circuit: QuantumCircuit, gateList: tuple[str, tuple[float, fl
             circuit.cz(gateList[i][1][0], gateList[i][1][1])
         elif gateList[i][0] == "CCNOT":  # ("CCNOT", (control1, control2, target))
             circuit.ccx(gateList[i][1][0], gateList[i][1][1], gateList[i][1][2])
+        elif gateList[i][0] == "CCZ":  # ("CCZ", (control1, control2, target))
+            circuit.ccz(gateList[i][1][0], gateList[i][1][1], gateList[i][1][2])
         elif gateList[i][0] == "CRx":  # ("CRx", (theta, (control, target))
             circuit.crx(gateList[i][1][0], gateList[i][1][1][0], gateList[i][1][1][1])
         elif gateList[i][0] == "CRy":  # ("CRy", (theta, (control, target))
@@ -161,7 +163,6 @@ def getControlledFixedAnsatzGates(qubits: int, parameters: List[List[float]]) ->
     gates = getFixedAnsatzGates(qubits, parameters)
     controlledGates = []
     auxiliaryQubit = 0
-    auxiliaryQubit2 = qubits + 1
     # Makes controlled fixed ansatz gate using simple rules mentioned in:
     # Bakalaurinis_darbas.pdf page 14 Section: "Specialusis Hadamardo testas"
     for i in range(len(gates)):
@@ -172,11 +173,5 @@ def getControlledFixedAnsatzGates(qubits: int, parameters: List[List[float]]) ->
         elif gates[i][0] == "Rz":
             controlledGates.append(("CRz", (gates[i][1][0], (0, gates[i][1][1] + 1))))
         elif gates[i][0] == "CZ":
-            controlledGates.append(
-                ("CCNOT", (auxiliaryQubit, gates[i][1][1] + 1, auxiliaryQubit2))
-            )
-            controlledGates.append(("CZ", (gates[i][1][0] + 1, auxiliaryQubit2)))
-            controlledGates.append(
-                ("CCNOT", (auxiliaryQubit, gates[i][1][1] + 1, auxiliaryQubit2))
-            )
+            controlledGates.append(("CCZ", (auxiliaryQubit, gates[i][1][0] + 1, gates[i][1][1] + 1)))
     return controlledGates
